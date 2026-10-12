@@ -8,10 +8,11 @@ against the shipping framework.
 
 The first component is the Word 97-2003 (`.doc`) writer that
 `NSDocFormatWriter` drives through
-`-[NSAttributedString dataFromRange:documentAttributes:]`, for the plain
-(unstyled) document that `textutil -convert doc` produces. It is exposed as a
-small C API, `UIDocFormatWriterGenerate()`, so plain-C tools such as
-`textutil` can link it without an Objective-C runtime:
+`-[NSAttributedString dataFromRange:documentAttributes:]`, for the single-run
+document that `textutil -convert doc` produces: plain text, optionally with one
+run-wide font and size (the `-font` and `-fontsize` options). It is exposed as
+a small C API, `UIDocFormatWriterGenerate()` / `UIDocFormatWriterGenerateStyled()`,
+so plain-C tools such as `textutil` can link it without an Objective-C runtime:
 
 - `include/UIFoundation/NSDocFormatWriter.h` - the public API.
 - `src/NSDocFormatWriter.c` - UTF-8 text to a Compound File Binary (CFB/OLE2)
@@ -23,8 +24,10 @@ small C API, `UIDocFormatWriterGenerate()`, so plain-C tools such as
 The writer's structure was recovered from the disassembly of
 `-[NSDocFormatWriter docFormatData]` and its write helpers: the four streams are
 assembled from static templates, the FIB and 1Table are patched with the
-character count, and the CFB sector/FAT/directory layout is reproduced
-directly, including its minimum of eight 512-byte sectors per stream.
+character count, the font table (SttbfFfn) and the run's character properties
+are written for the selected font and size, and the CFB
+sector/FAT/directory layout is reproduced directly, including its minimum of
+eight 512-byte sectors per stream.
 
 ## Building
 
@@ -46,9 +49,10 @@ checkout) links the same framework for its `.doc` output.
 
 ## Testing
 
-`tests/doc-parity.sh` generates a battery of plain-text fixtures, runs both
-`/usr/bin/textutil -convert doc` and `docgen` over each, and compares every
-byte. It is wired to `make doc-parity` and to the `doc-parity` Xcode target.
+`tests/doc-parity.sh` generates a battery of plain-text fixtures (plus run-wide
+`-font` / `-fontsize` cases), runs both `/usr/bin/textutil -convert doc` and
+`docgen` over each, and compares every byte. It is wired to `make doc-parity`
+and to the `doc-parity` Xcode target.
 
 ## License
 

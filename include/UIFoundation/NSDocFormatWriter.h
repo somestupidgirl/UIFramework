@@ -22,6 +22,18 @@ extern "C" {
 #endif
 
 /*
+ * Run-wide character styling for the whole body.  A NULL fontName selects the
+ * writer's default body font ("Helvetica Light"); a pointSize of 0 selects the
+ * default size (12pt).  Only the plain, single-run case is modelled: the style
+ * applies to every character in the document, which is what textutil's
+ * -font / -fontsize options produce for unattributed input.
+ */
+typedef struct {
+	const char *fontName;   /* UTF-8, or NULL for the default */
+	double pointSize;       /* points, or 0 for the default (12pt) */
+} UIDocFormatWriterStyle;
+
+/*
  * Generate a .doc image from len bytes of UTF-8 text (the same text a caller
  * would hand to textutil).  On success returns 0 and stores a malloc()'d
  * buffer of *outLen bytes in *out; the caller owns it via free().  On failure
@@ -29,6 +41,13 @@ extern "C" {
  */
 int UIDocFormatWriterGenerate(const char *utf8, size_t len,
     unsigned char **out, size_t *outLen);
+
+/*
+ * As UIDocFormatWriterGenerate(), but applies a run-wide style.  A NULL style
+ * is equivalent to UIDocFormatWriterGenerate().
+ */
+int UIDocFormatWriterGenerateStyled(const char *utf8, size_t len,
+    const UIDocFormatWriterStyle *style, unsigned char **out, size_t *outLen);
 
 #ifdef __cplusplus
 }

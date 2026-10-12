@@ -40,9 +40,10 @@ fail=0
 run_case() {
 	name="$1"
 	src="$2"
-	"$ORACLE" -convert doc -output "$tmp/o.doc" "$src" >/dev/null 2>&1 || {
+	shift 2
+	"$ORACLE" -convert doc "$@" -output "$tmp/o.doc" "$src" >/dev/null 2>&1 || {
 		echo "SKIP $name (oracle failed)"; return; }
-	"$MY" "$src" "$tmp/m.doc" || { echo "FAIL $name (docgen failed)"; fail=$((fail+1)); return; }
+	"$MY" "$@" "$src" "$tmp/m.doc" || { echo "FAIL $name (docgen failed)"; fail=$((fail+1)); return; }
 	if cmp -s "$tmp/o.doc" "$tmp/m.doc"; then
 		pass=$((pass+1))
 	else
@@ -99,6 +100,25 @@ while read -r name; do
 done <<EOF
 $(python3 -c 'import os,sys;print("\n".join(sorted(f[:-4] for f in os.listdir(sys.argv[1]) if f.endswith(".txt"))))' "$tmp")
 EOF
+
+# Run-wide styling: -font / -fontsize over plain text.
+run_case "style-font-arial"    "$tmp/simple.txt" -font Arial
+run_case "style-font-times"    "$tmp/simple.txt" -font "Times New Roman"
+run_case "style-font-courier"  "$tmp/simple.txt" -font Courier
+run_case "style-font-geneva"   "$tmp/simple.txt" -font Geneva
+run_case "style-font-zapfino"  "$tmp/simple.txt" -font Zapfino
+run_case "style-font-symbol"   "$tmp/simple.txt" -font Symbol
+run_case "style-font-dingbats" "$tmp/simple.txt" -font "Zapf Dingbats"
+run_case "style-font-menlo"    "$tmp/simple.txt" -font Menlo
+run_case "style-size-30"       "$tmp/simple.txt" -fontsize 30
+run_case "style-size-9"        "$tmp/simple.txt" -fontsize 9
+run_case "style-size-10_5"     "$tmp/simple.txt" -fontsize 10.5
+run_case "style-arial-30"      "$tmp/simple.txt" -font Arial -fontsize 30
+run_case "style-geneva-18"     "$tmp/simple.txt" -font Geneva -fontsize 18
+run_case "style-2paras"        "$tmp/two_paras.txt" -font Courier -fontsize 24
+run_case "style-unicode"       "$tmp/unicode.txt" -font Arial -fontsize 14
+run_case "style-empty-f"       "$tmp/empty.txt" -font Arial
+run_case "style-empty-s"       "$tmp/empty.txt" -fontsize 30
 
 echo "PASS=$pass FAIL=$fail"
 [ "$fail" -eq 0 ]
