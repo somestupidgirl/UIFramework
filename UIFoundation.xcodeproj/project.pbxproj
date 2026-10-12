@@ -319,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				PRODUCT_NAME = docgen;
 			};
 			name = Debug;
@@ -327,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				PRODUCT_NAME = docgen;
 			};
 			name = Release;
