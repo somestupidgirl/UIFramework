@@ -103,17 +103,33 @@
 		B60000050000000000000003 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B60000050000000000000006 /* UIFoundation */,
+				B60000050000000000000007 /* docgen */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B60000050000000000000006 /* UIFoundation */ = {
+			isa = PBXGroup;
+			children = (
 				B30000010000000000000001 /* NSDocFormatWriter.c */,
 				B30000010000000000000003 /* module.modulemap */,
 				B30000010000000000000004 /* Info.plist */,
 			);
-			path = src;
+			path = UIFoundation;
+			sourceTree = "<group>";
+		};
+		B60000050000000000000007 /* docgen */ = {
+			isa = PBXGroup;
+			children = (
+				B30000010000000000000005 /* docgen.c */,
+			);
+			path = docgen;
 			sourceTree = "<group>";
 		};
 		B60000050000000000000004 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				B30000010000000000000005 /* docgen.c */,
 				B30000010000000000000006 /* doc-parity.sh */,
 			);
 			path = tests;
@@ -292,8 +308,8 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = src/Info.plist;
-				MODULEMAP_FILE = src/module.modulemap;
+				INFOPLIST_FILE = src/UIFoundation/Info.plist;
+				MODULEMAP_FILE = src/UIFoundation/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.libredarwin.UIFoundation;
 				PRODUCT_NAME = UIFoundation;
 				PUBLIC_HEADERS_FOLDER_PATH = Headers;
@@ -307,8 +323,8 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = src/Info.plist;
-				MODULEMAP_FILE = src/module.modulemap;
+				INFOPLIST_FILE = src/UIFoundation/Info.plist;
+				MODULEMAP_FILE = src/UIFoundation/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.libredarwin.UIFoundation;
 				PRODUCT_NAME = UIFoundation;
 				PUBLIC_HEADERS_FOLDER_PATH = Headers;

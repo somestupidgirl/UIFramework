@@ -15,11 +15,12 @@ a small C API, `UIDocFormatWriterGenerate()` / `UIDocFormatWriterGenerateStyled(
 so plain-C tools such as `textutil` can link it without an Objective-C runtime:
 
 - `include/UIFoundation/NSDocFormatWriter.h` - the public API.
-- `src/NSDocFormatWriter.c` - UTF-8 text to a Compound File Binary (CFB/OLE2)
-  container holding `WordDocument`, `1Table`, `SummaryInformation` and
-  `DocumentSummaryInformation`.
-- `src/*.h` - the constant stream templates, extracted from the shipping
-  framework's own template blobs.
+- `src/UIFoundation/NSDocFormatWriter.c` - UTF-8 text to a Compound File Binary
+  (CFB/OLE2) container holding `WordDocument`, `1Table`, `SummaryInformation`
+  and `DocumentSummaryInformation`.
+- `src/UIFoundation/*.h` - the constant stream templates, extracted from the
+  shipping framework's own template blobs.
+- `src/docgen/docgen.c` - the command-line driver the parity harness runs.
 
 The writer's structure was recovered from the disassembly of
 `-[NSDocFormatWriter docFormatData]` and its write helpers: the four streams are

@@ -24,6 +24,9 @@ CFLAGS := $(OPT) -std=c11 -D_DARWIN_C_SOURCE -isysroot "$(SDK)" -Wall -Wextra
 
 FRAMEWORK := $(BUILD_DIR)/UIFoundation.framework
 
+FW_SRC      := src/UIFoundation
+DOCGEN_SRC  := src/docgen
+
 DOCGEN_BIN  := $(BUILD_DIR)/docgen
 DOCGEN_OBJS := $(OBJDIR)/docgen.o
 
@@ -37,25 +40,25 @@ $(FRAMEWORK): $(OBJS)
 	    -install_name @rpath/UIFoundation.framework/UIFoundation \
 	    -compatibility_version 1 -current_version 1 -o $(FRAMEWORK)/UIFoundation $(OBJS)
 	cp include/UIFoundation/NSDocFormatWriter.h $(FRAMEWORK)/Headers/NSDocFormatWriter.h
-	cp src/module.modulemap $(FRAMEWORK)/Modules/module.modulemap
-	cp src/Info.plist $(FRAMEWORK)/Resources/Info.plist
+	cp $(FW_SRC)/module.modulemap $(FRAMEWORK)/Modules/module.modulemap
+	cp $(FW_SRC)/Info.plist $(FRAMEWORK)/Resources/Info.plist
 
-$(OBJDIR)/NSDocFormatWriter.o: src/NSDocFormatWriter.c \
-	src/doc_head_0600.h src/doc_char_fkp_0200.h src/doc_para_fkp_0200.h \
-	src/doc_desc_0200.h src/table1_nonempty_4096.h src/table1_empty_4096.h \
-	src/si_4096.h src/dsi_4096.h src/doc_hdr_0050.h src/doc_dir_0280.h \
+$(OBJDIR)/NSDocFormatWriter.o: $(FW_SRC)/NSDocFormatWriter.c \
+	$(FW_SRC)/doc_head_0600.h $(FW_SRC)/doc_char_fkp_0200.h $(FW_SRC)/doc_para_fkp_0200.h \
+	$(FW_SRC)/doc_desc_0200.h $(FW_SRC)/table1_nonempty_4096.h $(FW_SRC)/table1_empty_4096.h \
+	$(FW_SRC)/si_4096.h $(FW_SRC)/dsi_4096.h $(FW_SRC)/doc_hdr_0050.h $(FW_SRC)/doc_dir_0280.h \
 	include/UIFoundation/NSDocFormatWriter.h
 	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -Iinclude -Isrc -c -o $@ src/NSDocFormatWriter.c
+	$(CC) $(CFLAGS) -Iinclude -I$(FW_SRC) -c -o $@ $(FW_SRC)/NSDocFormatWriter.c
 
 $(DOCGEN_BIN): $(DOCGEN_OBJS) $(FRAMEWORK)
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $(DOCGEN_OBJS) -F$(BUILD_DIR) \
 	    -framework UIFoundation -Wl,-rpath,@executable_path
 
-$(OBJDIR)/docgen.o: tests/docgen.c include/UIFoundation/NSDocFormatWriter.h
+$(OBJDIR)/docgen.o: $(DOCGEN_SRC)/docgen.c include/UIFoundation/NSDocFormatWriter.h
 	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -Iinclude -c -o $@ tests/docgen.c
+	$(CC) $(CFLAGS) -Iinclude -c -o $@ $(DOCGEN_SRC)/docgen.c
 
 # Byte-parity check against Apple's /usr/bin/textutil.  Same MY/oracle
 # convention as the other LibreDarwin tool harnesses; run with bash explicitly
