@@ -1,0 +1,390 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		B70000010000000000000003 /* doc-parity */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = B80000010000000000000003 /* Build configuration list for PBXAggregateTarget "doc-parity" */;
+			buildPhases = (
+				B50000010000000000000003 /* doc parity */,
+			);
+			dependencies = (
+				B7B000010000000000000005 /* PBXTargetDependency */,
+			);
+			name = "doc-parity";
+			productName = "doc-parity";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		B10000010000000000000001 /* NSDocFormatWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = B30000010000000000000001 /* NSDocFormatWriter.c */; };
+		B10000010000000000000002 /* docgen.c in Sources */ = {isa = PBXBuildFile; fileRef = B30000010000000000000005 /* docgen.c */; };
+		B10000010000000000000003 /* UIFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20000010000000000000001 /* UIFoundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B7B000010000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B60000010000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B70000010000000000000001;
+			remoteInfo = UIFoundation;
+		};
+		B7B000010000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B60000010000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B70000010000000000000002;
+			remoteInfo = docgen;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B20000010000000000000001 /* UIFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20000010000000000000002 /* docgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = docgen; sourceTree = BUILT_PRODUCTS_DIR; };
+		B30000010000000000000001 /* NSDocFormatWriter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NSDocFormatWriter.c; sourceTree = "<group>"; };
+		B30000010000000000000002 /* NSDocFormatWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSDocFormatWriter.h; sourceTree = "<group>"; };
+		B30000010000000000000003 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.module-map; path = module.modulemap; sourceTree = "<group>"; };
+		B30000010000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B30000010000000000000005 /* docgen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = docgen.c; sourceTree = "<group>"; };
+		B30000010000000000000006 /* doc-parity.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "doc-parity.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B50000010000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50000010000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000010000000000000003 /* UIFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B60000050000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				B60000050000000000000002 /* include */,
+				B60000050000000000000003 /* src */,
+				B60000050000000000000004 /* tests */,
+				B90000040000000000000002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B60000050000000000000002 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B60000050000000000000005 /* UIFoundation */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		B60000050000000000000005 /* UIFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				B30000010000000000000002 /* NSDocFormatWriter.h */,
+			);
+			path = UIFoundation;
+			sourceTree = "<group>";
+		};
+		B60000050000000000000003 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B30000010000000000000001 /* NSDocFormatWriter.c */,
+				B30000010000000000000003 /* module.modulemap */,
+				B30000010000000000000004 /* Info.plist */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B60000050000000000000004 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				B30000010000000000000005 /* docgen.c */,
+				B30000010000000000000006 /* doc-parity.sh */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		B90000040000000000000002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B20000010000000000000001 /* UIFoundation.framework */,
+				B20000010000000000000002 /* docgen */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B70000010000000000000001 /* UIFoundation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B80000010000000000000001 /* Build configuration list for PBXNativeTarget "UIFoundation" */;
+			buildPhases = (
+				B50000010000000000000004 /* Sources */,
+				B50000010000000000000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UIFoundation;
+			productName = UIFoundation;
+			productReference = B20000010000000000000001 /* UIFoundation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B70000010000000000000002 /* docgen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B80000010000000000000002 /* Build configuration list for PBXNativeTarget "docgen" */;
+			buildPhases = (
+				B50000010000000000000005 /* Sources */,
+				B50000010000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7B000010000000000000004 /* PBXTargetDependency */,
+			);
+			name = docgen;
+			productName = docgen;
+			productReference = B20000010000000000000002 /* docgen */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B60000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = B80000010000000000000004 /* Build configuration list for PBXProject "UIFoundation" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B60000050000000000000001;
+			productRefGroup = B90000040000000000000002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B70000010000000000000001 /* UIFoundation */,
+				B70000010000000000000002 /* docgen */,
+				B70000010000000000000003 /* doc-parity */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B50000010000000000000003 /* doc parity */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "doc parity";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "set -e\nORACLE=\"${ORACLE:-/usr/bin/textutil}\"\nif [ ! -x \"$BUILT_PRODUCTS_DIR/docgen\" ]; then\n  echo \"error: docgen was not built at $BUILT_PRODUCTS_DIR/docgen\"\n  exit 1\nfi\nif [ ! -x \"$ORACLE\" ]; then\n  echo \"warning: oracle $ORACLE is absent, skipping doc parity\"\n  exit 0\nfi\nMY=\"$BUILT_PRODUCTS_DIR/docgen\" ORACLE=\"$ORACLE\" bash \"$SRCROOT/tests/doc-parity.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B50000010000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000010000000000000001 /* NSDocFormatWriter.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50000010000000000000005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000010000000000000002 /* docgen.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B7B000010000000000000004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B70000010000000000000001 /* UIFoundation */;
+			targetProxy = B7B000010000000000000001 /* PBXContainerItemProxy */;
+		};
+		B7B000010000000000000005 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B70000010000000000000002 /* docgen */;
+			targetProxy = B7B000010000000000000003 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B80000010000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				OBJROOT = "$(SRCROOT)/build/xcode";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SYMROOT = "$(SRCROOT)/build/xcode";
+			};
+			name = Debug;
+		};
+		B80000010000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				OBJROOT = "$(SRCROOT)/build/xcode";
+				SDKROOT = macosx;
+				SYMROOT = "$(SRCROOT)/build/xcode";
+			};
+			name = Release;
+		};
+		B80000010000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = src/Info.plist;
+				MODULEMAP_FILE = src/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.libredarwin.UIFoundation;
+				PRODUCT_NAME = UIFoundation;
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+			};
+			name = Debug;
+		};
+		B80000010000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = src/Info.plist;
+				MODULEMAP_FILE = src/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.libredarwin.UIFoundation;
+				PRODUCT_NAME = UIFoundation;
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+			};
+			name = Release;
+		};
+		B80000010000000000000009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				PRODUCT_NAME = docgen;
+			};
+			name = Debug;
+		};
+		B8000001000000000000000A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/include";
+				PRODUCT_NAME = docgen;
+			};
+			name = Release;
+		};
+		B8000001000000000000000B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B8000001000000000000000C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B80000010000000000000001 /* Build configuration list for PBXNativeTarget "UIFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B80000010000000000000007 /* Debug */,
+				B80000010000000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B80000010000000000000002 /* Build configuration list for PBXNativeTarget "docgen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B80000010000000000000009 /* Debug */,
+				B8000001000000000000000A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B80000010000000000000003 /* Build configuration list for PBXAggregateTarget "doc-parity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8000001000000000000000B /* Debug */,
+				B8000001000000000000000C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B80000010000000000000004 /* Build configuration list for PBXProject "UIFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B80000010000000000000005 /* Debug */,
+				B80000010000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B60000010000000000000001 /* Project object */;
+}
