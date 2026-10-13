@@ -120,5 +120,71 @@ run_case "style-unicode"       "$tmp/unicode.txt" -font Arial -fontsize 14
 run_case "style-empty-f"       "$tmp/empty.txt" -font Arial
 run_case "style-empty-s"       "$tmp/empty.txt" -fontsize 30
 
+# Character runs that mix fonts and sizes (what textutil produces from RTF or
+# HTML).  Fixtures are written with python3 so the run lists stay readable.
+python3 - "$tmp" <<'PY'
+import sys, os
+d = sys.argv[1]
+
+def w(name, s):
+    with open(os.path.join(d, name), "w") as f:
+        f.write(s)
+
+# Two fonts, two sizes.
+w("runs_a.txt", "Hello World\n")
+w("runs_a.runs", "0|6|Times New Roman|12\n6|5|Arial|24\n")
+w("runs_a.rtf", r"{\rtf1\ansi\deff0{\fonttbl{\f0\froman Times New Roman;}"
+  r"{\f1\fswiss Arial;}}\f0\fs24 Hello \f1\fs48 World\par}")
+
+# Forty one-character runs -> several character FKP pages.
+xs = "".join("\\fs%d X" % s for s in range(24, 64, 2)) * 2
+w("runs_f.txt", "X" * 40 + "\n")
+w("runs_f.runs", "".join("%d|1|Times New Roman|%d\n" % (i, 12 + i % 20)
+  for i in range(40)))
+w("runs_f.rtf", r"{\rtf1\ansi\deff0{\fonttbl{\f0\froman Times New Roman;}}"
+  r"\f0 " + xs + r"\par}")
+
+# Stress: 600 characters, 150 runs, five fonts, several text/FKP pages.
+fonts = ["Times New Roman", "Arial", "Courier New", "Georgia", "Verdana"]
+sizes = [12, 14, 18, 24, 36]
+ft = "".join("{\\f%d\\fnil %s;}" % (i, f) for i, f in enumerate(fonts))
+txt = []
+rtf = []
+runs = []
+pos = ri = 0
+while pos < 600:
+    L = min(4, 600 - pos)
+    f = fonts[ri % len(fonts)]
+    s = sizes[ri % len(sizes)]
+    seg = "".join(chr(65 + (pos + j) % 26) for j in range(L))
+    txt.append(seg)
+    rtf.append("\\f%d\\fs%d %s" % (fonts.index(f), s * 2, seg))
+    runs.append("%d|%d|%s|%d" % (pos, L, f, s))
+    pos += L
+    ri += 1
+w("runs_s.txt", "".join(txt) + "\n")
+w("runs_s.runs", "\n".join(runs) + "\n")
+w("runs_s.rtf", r"{\rtf1\ansi\deff0{\fonttbl" + ft + "}" + "".join(rtf)
+  + r"\par}")
+PY
+
+run_multi() {
+	name="$1"
+	"$ORACLE" -convert doc "$tmp/$name.rtf" -output "$tmp/o.doc" \
+	    >/dev/null 2>&1 || { echo "SKIP $name (oracle failed)"; return; }
+	"$MY" -runs "$tmp/$name.runs" "$tmp/$name.txt" "$tmp/m.doc" \
+	    || { echo "FAIL $name (docgen failed)"; fail=$((fail+1)); return; }
+	if cmp -s "$tmp/o.doc" "$tmp/m.doc"; then
+		pass=$((pass+1))
+	else
+		echo "FAIL $name"
+		fail=$((fail+1))
+	fi
+}
+
+run_multi runs_a
+run_multi runs_f
+run_multi runs_s
+
 echo "PASS=$pass FAIL=$fail"
 [ "$fail" -eq 0 ]

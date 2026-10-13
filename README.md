@@ -8,11 +8,13 @@ against the shipping framework.
 
 The first component is the Word 97-2003 (`.doc`) writer that
 `NSDocFormatWriter` drives through
-`-[NSAttributedString dataFromRange:documentAttributes:]`, for the single-run
-document that `textutil -convert doc` produces: plain text, optionally with one
-run-wide font and size (the `-font` and `-fontsize` options). It is exposed as
-a small C API, `UIDocFormatWriterGenerate()` / `UIDocFormatWriterGenerateStyled()`,
-so plain-C tools such as `textutil` can link it without an Objective-C runtime:
+`-[NSAttributedString dataFromRange:documentAttributes:]`, reproducing the
+documents that `textutil -convert doc` produces: plain text, a single run-wide
+font and size (the `-font` and `-fontsize` options), or arbitrary character
+runs that mix fonts and sizes. It is exposed as a small C API so plain-C tools
+such as `textutil` can link it without an Objective-C runtime:
+`UIDocFormatWriterGenerate()`, `UIDocFormatWriterGenerateStyled()` and
+`UIDocFormatWriterGenerateRuns()`:
 
 - `include/UIFoundation/NSDocFormatWriter.h` - the public API.
 - `src/UIFoundation/NSDocFormatWriter.c` - UTF-8 text to a Compound File Binary
@@ -51,9 +53,10 @@ checkout) links the same framework for its `.doc` output.
 ## Testing
 
 `tests/doc-parity.sh` generates a battery of plain-text fixtures (plus run-wide
-`-font` / `-fontsize` cases), runs both `/usr/bin/textutil -convert doc` and
-`docgen` over each, and compares every byte. It is wired to `make doc-parity`
-and to the `doc-parity` Xcode target.
+`-font` / `-fontsize` cases and mixed-font, multi-page character runs), runs
+both `/usr/bin/textutil -convert doc` and `docgen` over each, and compares
+every byte. It is wired to `make doc-parity` and to the `doc-parity` Xcode
+target.
 
 ## License
 
